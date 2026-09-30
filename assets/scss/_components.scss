@@ -1,0 +1,457 @@
+// ==========================================================================
+// Komponenty: zoznamy, karty, galéria, formulár, lightbox, cookie, ...
+// ==========================================================================
+
+.check-list {
+    display: grid;
+    gap: 10px;
+
+    li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .icon {
+        width: 22px;
+        height: 22px;
+        padding: 4px;
+        margin-top: 1px;
+        border-radius: 50%;
+        background: $red;
+        color: $white;
+        stroke-width: 3;
+    }
+
+    &--2col { @include up($bp-sm) { grid-template-columns: repeat(2, 1fr); } }
+
+    &--big {
+        gap: 16px;
+        font-size: 1.08rem;
+        color: $white;
+
+        li {
+            padding: 16px 20px;
+            background: $dark-2;
+            border-radius: $radius;
+        }
+    }
+}
+
+.cards-3 {
+    display: grid;
+    gap: 20px;
+
+    @include up($bp-md) { grid-template-columns: repeat(3, 1fr); }
+}
+
+.info-card {
+    padding: 32px 28px;
+    background: $white;
+    border: 1px solid $gray-300;
+    border-radius: $radius;
+    transition: box-shadow .3s, transform .3s $ease;
+
+    &:hover { box-shadow: $shadow; transform: translateY(-4px); }
+
+    p { margin: 0; color: $gray-700; }
+
+    &__icon {
+        display: grid;
+        place-items: center;
+        width: 56px;
+        height: 56px;
+        margin-bottom: 18px;
+        border-radius: 14px;
+        background: $red;
+        color: $white;
+
+        .icon { width: 28px; height: 28px; }
+    }
+}
+
+// ---- Bočná karta (detail služby) ------------------------------------------
+.side-card {
+    padding: 28px;
+    border-radius: $radius;
+    background: $gray-100;
+
+    & + & { margin-top: 20px; }
+
+    &--red {
+        background: $red;
+        color: rgba($white, .9);
+
+        h3 { color: $white; }
+    }
+
+    &__phone {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 14px;
+        color: $white;
+        font-family: $font-head;
+        font-weight: 700;
+
+        &:hover { color: $white; text-decoration: underline; }
+    }
+}
+
+// ---- Zoznam vlastností služby ---------------------------------------------
+.feature-list {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 56px;
+
+    @include up($bp-sm) { grid-template-columns: repeat(2, 1fr); }
+
+    &__item {
+        display: flex;
+        gap: 16px;
+        padding: 24px;
+        border: 1px solid $gray-300;
+        border-radius: $radius;
+        transition: border-color .3s;
+
+        &:hover { border-color: $red; }
+
+        h3 { margin-bottom: .3em; font-size: 1.05rem; }
+        p { margin: 0; font-size: .93rem; color: $gray-700; }
+    }
+
+    &__num {
+        font-family: $font-head;
+        font-size: 1.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        color: $red;
+    }
+}
+
+// ---- Galéria ---------------------------------------------------------------
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+
+    @include up($bp-md) { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @include up($bp-lg) { &:not(.gallery--compact) { grid-template-columns: repeat(4, 1fr); } }
+
+    &__item {
+        position: relative;
+        display: block;
+        aspect-ratio: 4 / 3;
+        border-radius: $radius-sm;
+        overflow: hidden;
+        background: $gray-100;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s $ease;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba($red, .55), transparent 60%);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        &:hover img { transform: scale(1.06); }
+        &:hover::after { opacity: 1; }
+
+        &.is-hidden { display: none; }
+    }
+
+    &__label {
+        position: absolute;
+        left: 12px;
+        bottom: 10px;
+        z-index: 1;
+        color: $white;
+        font-size: .8rem;
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity .3s;
+    }
+
+    &__item:hover &__label { opacity: 1; }
+}
+
+.placeholder-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 14px;
+
+    &__item {
+        display: grid;
+        place-items: center;
+        aspect-ratio: 4 / 3;
+        border-radius: $radius-sm;
+        background:
+            repeating-linear-gradient(135deg, rgba($red, .06) 0 12px, transparent 12px 24px),
+            $gray-100;
+        color: rgba($red, .5);
+
+        .icon { width: 40%; height: 40%; }
+    }
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+
+    button {
+        padding: 9px 18px;
+        border: 1px solid $gray-300;
+        border-radius: 50px;
+        background: $white;
+        font-size: .9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .2s;
+
+        &:hover { border-color: $red; color: $red; }
+        &.is-active { background: $red; border-color: $red; color: $white; }
+
+        // počet fotiek v kategórii
+        span {
+            display: inline-block;
+            min-width: 22px;
+            margin-left: 4px;
+            padding: 1px 7px;
+            border-radius: 20px;
+            background: $gray-100;
+            color: $gray-700;
+            font-size: .75rem;
+            line-height: 1.5;
+        }
+
+        &.is-active span { background: rgba($white, .25); color: $white; }
+    }
+
+    // mobil: jeden riadok s posúvaním do strany
+    @include down($bp-md) {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        margin-left: -$gutter;
+        margin-right: -$gutter;
+        padding: 2px $gutter 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar { display: none; }
+
+        button { flex-shrink: 0; white-space: nowrap; }
+    }
+}
+
+// ---- Lightbox --------------------------------------------------------------
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: grid;
+    place-items: center;
+    padding: 60px 16px;
+    background: rgba(10, 10, 12, .92);
+
+    &[hidden] { display: none; }
+
+    img {
+        max-height: 85vh;
+        width: auto;
+        border-radius: $radius-sm;
+        box-shadow: $shadow-lg;
+    }
+
+    button {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border: 0;
+        border-radius: 50%;
+        background: rgba($white, .12);
+        color: $white;
+        font-size: 1.6rem;
+        line-height: 1;
+        cursor: pointer;
+
+        &:hover { background: $red; }
+    }
+
+    &__close { top: 12px; right: 12px; }
+    &__prev  { left: 12px; top: 50%; margin-top: -24px; }
+    &__next  { right: 12px; top: 50%; margin-top: -24px; }
+}
+
+// ---- Formulár --------------------------------------------------------------
+.form {
+    display: grid;
+    gap: 18px;
+
+    &__row {
+        display: grid;
+        gap: 18px;
+
+        @include up($bp-sm) { grid-template-columns: 1fr 1fr; }
+    }
+
+    &__hp {
+        position: absolute !important;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    &__note { margin: 0; font-size: .82rem; color: $gray-500; }
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+
+    label {
+        font-size: .88rem;
+        font-weight: 600;
+        color: $black;
+
+        .req { color: $red; }
+    }
+
+    input, select, textarea {
+        width: 100%;
+        min-height: 50px;
+        padding: 12px 16px;
+        border: 1.5px solid $gray-300;
+        border-radius: $radius-sm;
+        background: $white;
+        font-size: 1rem;           // 16px – iOS nezväčšuje stránku pri kliknutí
+        transition: border-color .2s, box-shadow .2s;
+
+        &:focus {
+            outline: none;
+            border-color: $red;
+            box-shadow: 0 0 0 4px rgba($red, .12);
+        }
+    }
+
+    select {
+        appearance: none;
+        padding-right: 44px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e40a13' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        background-size: 18px;
+    }
+
+    textarea { min-height: 150px; resize: vertical; }
+
+    &.has-error {
+        input, select, textarea { border-color: $red; background: $red-light; }
+    }
+
+    &__error {
+        font-size: .82rem;
+        color: $red;
+    }
+
+    &--check {
+        grid-template-columns: auto 1fr;
+        align-items: start;
+        gap: 12px;
+
+        input {
+            width: 20px;
+            min-height: 0;
+            height: 20px;
+            margin-top: 2px;
+            padding: 0;
+            accent-color: $red;
+        }
+
+        label { font-weight: 400; color: $gray-700; }
+        .field__error { grid-column: 2; }
+    }
+}
+
+.alert {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: $radius-sm;
+    font-weight: 500;
+
+    .icon { margin-top: 2px; }
+
+    &--success { background: #e8f7ee; color: #146c3a; }
+    &--error   { background: $red-light; color: $red-dark; }
+}
+
+// ---- Tlačidlo hore ---------------------------------------------------------
+.to-top {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    background: $red;
+    color: $white;
+    box-shadow: 0 8px 20px rgba($red, .35);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity .3s, transform .3s, visibility .3s, background .2s;
+
+    &.is-visible { opacity: 1; visibility: visible; transform: none; }
+    &:hover { background: $red-dark; }
+}
+
+// ---- Cookie lišta ----------------------------------------------------------
+.cookie {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 520px;
+    padding: 18px 20px;
+    background: $black;
+    color: rgba($white, .85);
+    border-radius: $radius;
+    box-shadow: $shadow-lg;
+    font-size: .9rem;
+
+    &[hidden] { display: none; }
+
+    p { margin: 0; }
+    a { color: $white; text-decoration: underline; }
+
+    @include up($bp-sm) {
+        flex-direction: row;
+        align-items: center;
+    }
+}

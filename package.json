@@ -1,0 +1,13 @@
+{
+  "name": "domart-servis-web",
+  "private": true,
+  "description": "Web DOMART servis, s.r.o.",
+  "scripts": {
+    "build:css": "sass assets/scss/style.scss assets/css/style.css --no-source-map --style=compressed",
+    "watch:css": "sass assets/scss/style.scss assets/css/style.css --no-source-map --watch",
+    "serve": "php -S localhost:8000"
+  },
+  "devDependencies": {
+    "sass": "^1.80.0"
+  }
+}

@@ -1,0 +1,15 @@
+/*!
+ * DOMART servis, s.r.o. – hlavný štýl
+ * Zdroj: assets/scss/style.scss  →  výstup: assets/css/style.css
+ * Kompilácia:  npx sass assets/scss/style.scss assets/css/style.css --no-source-map
+ */
+
+@import 'variables';
+@import 'base';
+@import 'buttons';
+@import 'header';
+@import 'hero';
+@import 'sections';
+@import 'components';
+@import 'pages';
+@import 'footer';

@@ -1,0 +1,551 @@
+// ==========================================================================
+// Špecifické stránky
+// ==========================================================================
+
+// ---- Detail služby ---------------------------------------------------------
+.service-intro {
+    margin-bottom: 40px;
+    padding: 24px 26px;
+    border-left: 4px solid $red;
+    border-radius: 0 $radius $radius 0;
+    background: $gray-100;
+    font-size: 1.05rem;
+
+    p:last-child { margin-bottom: 0; }
+}
+
+// ---- Referencia klienta ----------------------------------------------------
+.testimonial {
+    position: relative;
+    max-width: 860px;
+    margin: 48px auto 0;
+    padding: 40px 28px 32px;
+    border-radius: 20px;
+    background: $white;
+    box-shadow: $shadow;
+    text-align: center;
+
+    .section--light & { margin-top: 0; }
+
+    @include up($bp-md) { padding: 48px 56px 40px; }
+
+    &__icon {
+        position: absolute;
+        top: -26px;
+        left: 50%;
+        display: grid;
+        place-items: center;
+        width: 52px;
+        height: 52px;
+        margin-left: -26px;
+        border-radius: 50%;
+        background: $red;
+        color: $white;
+
+        .icon { width: 24px; height: 24px; }
+    }
+
+    blockquote {
+        margin: 0 0 22px;
+        font-size: clamp(1.02rem, 1.8vw, 1.2rem);
+        line-height: 1.7;
+        color: $gray-900;
+        font-style: italic;
+    }
+
+    figcaption {
+        strong { display: block; font-family: $font-head; color: $black; }
+        span { font-size: .88rem; color: $gray-500; }
+    }
+}
+
+// ---- Cenník servisu --------------------------------------------------------
+.price-table {
+    max-width: 900px;
+    margin: 0 auto;
+    overflow-x: auto;
+    border-radius: $radius;
+    background: $white;
+    box-shadow: $shadow;
+
+    table {
+        width: 100%;
+        min-width: 480px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 14px 18px;
+        text-align: left;
+        border-bottom: 1px solid $gray-100;
+        vertical-align: top;
+    }
+
+    th {
+        background: $dark;
+        color: $white;
+        font-family: $font-head;
+        font-size: .85rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+    }
+
+    td:not(:first-child), th:not(:first-child) {
+        white-space: nowrap;
+        text-align: right;
+    }
+
+    td:nth-child(2) { font-weight: 700; color: $red; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: $red-light; }
+}
+
+.price-notes {
+    max-width: 900px;
+    margin: 28px auto 0;
+    font-size: .93rem;
+    color: $gray-700;
+}
+
+.cards-3--2 {
+    max-width: 900px;
+    margin: 0 auto;
+
+    @include up($bp-md) { grid-template-columns: repeat(2, 1fr); }
+}
+
+// ---- Kontaktné osoby -------------------------------------------------------
+.contact-people {
+    display: grid;
+    gap: 24px;
+    max-width: 1040px;
+    margin: 0 auto;
+
+    @include up($bp-sm) { grid-template-columns: repeat(2, 1fr); }
+    @include up($bp-md) { grid-template-columns: repeat(3, 1fr); }
+}
+
+.person-contact {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: $white;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    transition: transform .3s $ease, box-shadow .3s;
+
+    &:hover { transform: translateY(-4px); box-shadow: $shadow-lg; }
+
+    // mobil: fotka vľavo, text vpravo
+    @include down($bp-sm) {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    &__photo {
+        position: relative;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 1;
+        background: linear-gradient(135deg, $red, $red-dark);
+        border-bottom: 4px solid $red;
+
+        @include down($bp-sm) {
+            flex: 0 0 112px;
+            aspect-ratio: auto;
+            border-bottom: 0;
+            border-right: 4px solid $red;
+
+            span { font-size: 2rem; }
+        }
+
+        img { width: 100%; height: 100%; object-fit: cover; }
+
+        span {
+            font-family: $font-head;
+            font-size: 3rem;
+            font-weight: 800;
+            color: $white;
+        }
+    }
+
+    &__body {
+        display: grid;
+        gap: 6px;
+        padding: 22px 24px 24px;
+
+        h3 { margin: 0; font-size: 1.2rem; }
+    }
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: $gray-700;
+        font-size: .93rem;
+        word-break: break-word;
+
+        &:hover { color: $red; }
+        .icon { width: 16px; height: 16px; color: $red; }
+    }
+
+    &__role {
+        margin-bottom: 4px;
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: $red;
+    }
+}
+.service-layout {
+    display: grid;
+    gap: 40px;
+
+    @include up($bp-lg) {
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 56px;
+        align-items: start;
+    }
+
+    &__side {
+        @include up($bp-lg) {
+            position: sticky;
+            top: $header-h + 24px;
+        }
+    }
+}
+
+// ---- Prehľad služieb -------------------------------------------------------
+.services-rows {
+    display: grid;
+    gap: 56px;
+
+    @include up($bp-md) { gap: 80px; }
+}
+
+.service-row {
+    display: grid;
+    gap: 28px;
+    align-items: center;
+    scroll-margin-top: $header-h + 24px;
+
+    @include up($bp-md) {
+        grid-template-columns: 5fr 7fr;
+        gap: 56px;
+
+        &--reverse .service-row__visual { order: 2; }
+    }
+
+    &__visual {
+        position: relative;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 4 / 3;
+        border-radius: 20px;
+        background:
+            radial-gradient(circle at 30% 25%, rgba($red, .5), transparent 55%),
+            $dark;
+        color: $white;
+        overflow: hidden;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 16px;
+            border: 1px solid rgba($white, .12);
+            border-radius: 12px;
+        }
+
+        .icon { width: 36%; height: 36%; stroke-width: 1.2; }
+
+        &--photo {
+            &::after { display: none; }
+
+            img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform .6s $ease;
+            }
+
+            &:hover img { transform: scale(1.05); }
+        }
+    }
+
+    &__badge {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        display: grid;
+        place-items: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: $red;
+        color: $white;
+        box-shadow: $shadow;
+
+        .icon { width: 26px; height: 26px; stroke-width: 1.8; }
+    }
+
+    &__lead { font-size: 1.05rem; color: $gray-700; }
+    .check-list { margin-bottom: 26px; }
+}
+
+// ---- O nás -----------------------------------------------------------------
+.about-visual {
+    &__box {
+        position: relative;
+        display: grid;
+        place-items: center;
+        gap: 16px;
+        aspect-ratio: 5 / 4;
+        padding: 40px;
+        border-radius: 20px;
+        background:
+            radial-gradient(circle at 80% 15%, rgba($white, .18), transparent 45%),
+            linear-gradient(135deg, $red, $red-dark);
+        color: rgba($white, .85);
+        text-align: center;
+        box-shadow: $shadow-lg;
+        align-content: center;
+
+        img { width: 80%; max-width: 280px; }
+
+        span {
+            font-family: $font-head;
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.team {
+    display: grid;
+    gap: 24px;
+    max-width: 980px;
+    margin: 0 auto;
+
+    @include up($bp-md) { grid-template-columns: repeat(2, 1fr); }
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+    background: $white;
+    border-radius: $radius;
+    overflow: hidden;
+    box-shadow: $shadow;
+
+    @include up($bp-sm) { flex-direction: row; }
+
+    &__photo {
+        position: relative;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 4 / 3;
+        background:
+            radial-gradient(circle at 70% 20%, rgba($white, .18), transparent 50%),
+            linear-gradient(135deg, $red, $red-dark);
+
+        @include up($bp-sm) { width: 170px; aspect-ratio: auto; min-height: 210px; }
+
+        img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+
+        span {
+            font-family: $font-head;
+            font-size: 3rem;
+            font-weight: 800;
+            color: $white;
+            letter-spacing: .04em;
+        }
+    }
+
+    &__body {
+        padding: 26px 26px 24px;
+
+        h3 { margin-bottom: .15em; font-size: 1.25rem; }
+        p { margin: 12px 0 0; color: $gray-700; font-size: .95rem; }
+    }
+
+    &__role {
+        font-size: .8rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: $red;
+    }
+}
+
+// ---- Referencie ------------------------------------------------------------
+.project-types {
+    display: grid;
+    gap: 20px;
+
+    @include up($bp-sm) { grid-template-columns: repeat(2, 1fr); }
+    @include up($bp-lg) { grid-template-columns: repeat(4, 1fr); }
+}
+
+.project-type {
+    padding: 28px 24px;
+    border-radius: $radius;
+    background: $white;
+    border-top: 4px solid $red;
+    box-shadow: $shadow;
+
+    p { margin: 0; font-size: .93rem; color: $gray-700; }
+
+    .icon { width: 36px; height: 36px; margin-bottom: 14px; color: $red; }
+}
+
+.insta-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 32px;
+    border-radius: 20px;
+    background: linear-gradient(120deg, $dark, $dark-2);
+    color: rgba($white, .8);
+
+    h2 { color: $white; margin-bottom: .2em; font-size: clamp(1.3rem, 2.4vw, 1.8rem); }
+    p { margin: 0; }
+
+    @include up($bp-md) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 40px 48px;
+    }
+
+    &__icon {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        background: $red;
+        color: $white;
+
+        .icon { width: 32px; height: 32px; }
+    }
+
+    &__body {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        @include down($bp-sm) { flex-direction: column; align-items: flex-start; }
+    }
+}
+
+// ---- Kontakt ---------------------------------------------------------------
+.contact-layout {
+    display: grid;
+    gap: 32px;
+
+    @include up($bp-lg) {
+        grid-template-columns: 380px minmax(0, 1fr);
+        gap: 48px;
+        align-items: start;
+    }
+}
+
+.contact-cards {
+    display: grid;
+    gap: 14px;
+
+    @include between-sm-lg { grid-template-columns: repeat(2, 1fr); }
+}
+
+.contact-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border-radius: $radius;
+    background: $gray-100;
+    color: $gray-700;
+    transition: background .25s, color .25s;
+
+    &__icon {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 46px;
+        height: 46px;
+        border-radius: $radius-sm;
+        background: $red;
+        color: $white;
+
+        .icon { width: 22px; height: 22px; }
+    }
+
+    small { display: block; font-size: .8rem; color: $gray-500; }
+    strong { display: block; color: $black; font-family: $font-head; word-break: break-word; }
+
+    &[href]:hover {
+        background: $red;
+        color: $white;
+
+        small, strong { color: $white; }
+        .contact-card__icon { background: $white; color: $red; }
+    }
+}
+
+.form-card {
+    padding: 28px 22px;
+    border-radius: 20px;
+    background: $white;
+    box-shadow: $shadow-lg;
+    border-top: 5px solid $red;
+
+    @include up($bp-md) { padding: 40px; }
+
+    h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); margin-bottom: .3em; }
+    > p { color: $gray-500; margin-bottom: 26px; }
+    .alert { margin-bottom: 22px; }
+}
+
+.map {
+    display: block;
+    width: 100%;
+    height: 380px;
+    border: 0;
+    filter: grayscale(.4);
+}
+
+// ---- Právne texty ----------------------------------------------------------
+.prose {
+    max-width: 800px;
+
+    h2 { font-size: 1.4rem; margin-top: 2em; }
+    ul { list-style: disc; padding-left: 1.3em; margin-bottom: 1em; }
+    li { margin-bottom: .3em; }
+}
+
+// ---- 404 -------------------------------------------------------------------
+.not-found {
+    text-align: center;
+    padding: 96px 0 120px;
+
+    &__code {
+        display: block;
+        font-family: $font-head;
+        font-size: clamp(6rem, 18vw, 11rem);
+        font-weight: 800;
+        line-height: 1;
+        color: $red;
+        -webkit-text-stroke: 0;
+    }
+
+    p { color: $gray-500; margin-bottom: 28px; }
+    .btn-group { justify-content: center; }
+}

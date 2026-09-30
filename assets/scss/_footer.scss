@@ -1,0 +1,83 @@
+// ==========================================================================
+// Pätička
+// ==========================================================================
+
+.footer {
+    background: $black;
+    color: rgba($white, .65);
+    font-size: .93rem;
+
+    &__grid {
+        display: grid;
+        gap: 36px;
+        padding-top: 64px;
+        padding-bottom: 48px;
+
+        @include up($bp-sm) { grid-template-columns: repeat(2, 1fr); }
+        @include up($bp-lg) { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 48px; }
+    }
+
+    h3 {
+        position: relative;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        color: $white;
+        font-size: 1rem;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 32px;
+            height: 3px;
+            background: $red;
+        }
+    }
+
+    ul { display: grid; gap: 10px; }
+
+    a { color: rgba($white, .65); &:hover { color: $white; } }
+
+    &__about {
+        img { width: 180px; margin-bottom: 18px; }
+        p { max-width: 320px; }
+    }
+
+    &__social {
+        display: flex;
+        gap: 10px;
+
+        a {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba($white, .08);
+            color: $white;
+            transition: background .25s;
+
+            &:hover { background: $red; }
+        }
+    }
+
+    &__contact {
+        li { display: flex; gap: 12px; align-items: flex-start; }
+        .icon { width: 18px; height: 18px; margin-top: 3px; color: $red; }
+    }
+
+    &__bottom {
+        border-top: 1px solid rgba($white, .08);
+        font-size: .82rem;
+
+        &-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 8px 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    }
+}

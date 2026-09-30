@@ -1,0 +1,73 @@
+// ==========================================================================
+// Tlačidlá
+// ==========================================================================
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 12px 24px;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    font-family: $font-head;
+    font-size: .95rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    transition: background .25s, color .25s, border-color .25s, transform .25s, box-shadow .25s;
+
+    .icon { width: 18px; height: 18px; transition: transform .25s; }
+    &:hover .icon { transform: translateX(3px); }
+    &:active { transform: translateY(1px); }
+
+    &--primary {
+        background: $red;
+        color: $white;
+        box-shadow: 0 8px 20px rgba($red, .3);
+
+        &:hover { background: $red-dark; color: $white; box-shadow: 0 10px 26px rgba($red, .4); }
+    }
+
+    &--outline {
+        border-color: $red;
+        color: $red;
+
+        &:hover { background: $red; color: $white; }
+    }
+
+    &--ghost {
+        border-color: rgba($white, .35);
+        color: $white;
+
+        &:hover { border-color: $white; background: rgba($white, .08); color: $white; }
+    }
+
+    &--white {
+        background: $white;
+        color: $red;
+
+        &:hover { background: $black; color: $white; }
+    }
+
+    &--outline-white {
+        border-color: $white;
+        color: $white;
+
+        &:hover { background: $white; color: $red; }
+    }
+
+    &--lg { min-height: 56px; padding: 16px 30px; font-size: 1rem; }
+    &--sm { min-height: 38px; padding: 8px 18px; font-size: .85rem; }
+    &--block { width: 100%; }
+
+    &:disabled { opacity: .6; cursor: wait; }
+}
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}

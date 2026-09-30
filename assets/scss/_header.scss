@@ -1,0 +1,261 @@
+// ==========================================================================
+// Horná lišta + hlavička + navigácia
+// ==========================================================================
+
+.topbar {
+    background: $dark;
+    color: rgba($white, .75);
+    font-size: .85rem;
+
+    @include down($bp-md) { display: none; }
+
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 40px;
+        gap: 20px;
+    }
+
+    &__info, &__meta {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    a, span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: inherit;
+    }
+
+    a:hover { color: $white; }
+    .icon { width: 16px; height: 16px; color: $red; }
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    // bez backdrop-filter – vytváral by kontext pre position:fixed mobilného menu
+    background: $white;
+    border-bottom: 1px solid transparent;
+    transition: box-shadow .3s, border-color .3s;
+
+    &.is-scrolled {
+        box-shadow: 0 6px 24px rgba(17, 17, 20, .08);
+        border-color: $gray-100;
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: $header-h;
+        gap: 24px;
+    }
+}
+
+.logo {
+    flex-shrink: 0;
+
+    img { width: 170px; height: auto; }
+    @include up($bp-md) { img { width: 190px; } }
+}
+
+// ---- Navigácia – desktop ---------------------------------------------------
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    &__list {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 14px;
+        font-family: $font-head;
+        font-weight: 600;
+        font-size: .95rem;
+        color: $black;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 4px;
+            height: 2px;
+            background: $red;
+            transform: scaleX(0);
+            transition: transform .25s $ease;
+        }
+
+        &:hover, &.is-active { color: $red; }
+        &:hover::after, &.is-active::after { transform: scaleX(1); }
+    }
+
+    &__caret { width: 14px; height: 14px; transition: transform .25s; }
+
+    &__item--dropdown { position: relative; }
+
+    &__sub-toggle { display: none; }
+
+    &__dropdown {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        min-width: 300px;
+        padding: 10px;
+        background: $white;
+        border-radius: $radius;
+        box-shadow: $shadow-lg;
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, 10px);
+        transition: opacity .25s, transform .25s $ease, visibility .25s;
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: $radius-sm;
+            color: $black;
+            font-weight: 500;
+
+            &:hover { background: $red-light; color: $red; }
+        }
+    }
+
+    &__dropdown-icon {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: $radius-sm;
+        background: $red-light;
+        color: $red;
+
+        .icon { width: 20px; height: 20px; }
+    }
+
+    @include up($bp-lg) {
+        &__item--dropdown:hover,
+        &__item--dropdown:focus-within {
+            .nav__dropdown { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+            .nav__caret { transform: rotate(180deg); }
+        }
+    }
+
+    // ---- Navigácia – mobil --------------------------------------------------
+    @include down($bp-lg) {
+        position: fixed;
+        top: $header-h;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        padding: 20px $gutter 40px;
+        background: $white;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px);
+        transition: opacity .3s, transform .3s $ease, visibility .3s;
+
+        .nav-open & { opacity: 1; visibility: visible; transform: none; }
+
+        &__list { flex-direction: column; align-items: stretch; gap: 0; }
+
+        &__list > li { border-bottom: 1px solid $gray-100; }
+
+        &__link {
+            width: 100%;
+            padding: 16px 4px;
+            font-size: 1.1rem;
+
+            &::after { display: none; }
+        }
+
+        &__caret { display: none; }
+
+        &__item--dropdown {
+            display: grid;
+            grid-template-columns: 1fr auto;
+        }
+
+        &__sub-toggle {
+            display: grid;
+            place-items: center;
+            width: 48px;
+            border: 0;
+            background: none;
+            color: $black;
+            cursor: pointer;
+
+            svg { width: 20px; height: 20px; transition: transform .25s; }
+            &[aria-expanded='true'] svg { transform: rotate(180deg); }
+        }
+
+        &__dropdown {
+            grid-column: 1 / -1;
+            position: static;
+            display: none;
+            min-width: 0;
+            padding: 0 0 12px;
+            box-shadow: none;
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+
+            &.is-open { display: block; }
+        }
+
+        &__cta { width: 100%; }
+    }
+}
+
+// ---- Hamburger -------------------------------------------------------------
+.burger {
+    display: none;
+    position: relative;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: $radius-sm;
+    background: $red;
+    cursor: pointer;
+
+    @include down($bp-lg) { display: block; }
+
+    span {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        height: 2px;
+        background: $white;
+        border-radius: 2px;
+        transition: transform .3s $ease, opacity .2s;
+
+        &:nth-child(1) { top: 15px; }
+        &:nth-child(2) { top: 22px; }
+        &:nth-child(3) { top: 29px; }
+    }
+
+    &[aria-expanded='true'] span {
+        &:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        &:nth-child(2) { opacity: 0; }
+        &:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+}
